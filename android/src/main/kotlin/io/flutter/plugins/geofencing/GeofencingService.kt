@@ -135,8 +135,11 @@ class GeofencingService : MethodCallHandler, JobIntentService() {
 
         // Get the geofences that were triggered. A single event can trigger
         // multiple geofences.
-        val triggeringGeofences = geofencingEvent.triggeringGeofences.map {
-            it.requestId
+        var triggeringGeofences = listOf<String>()
+        if (geofencingEvent.triggeringGeofences != null) {
+            triggeringGeofences = geofencingEvent.triggeringGeofences.map {
+                it.requestId
+            }
         }
 
         val location = geofencingEvent.triggeringLocation
