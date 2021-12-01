@@ -6,6 +6,7 @@ package io.flutter.plugins.geofencing
 
 import android.content.Context
 import android.content.Intent
+import android.location.Location
 import android.os.IBinder
 import android.os.PowerManager
 import android.os.Handler
@@ -142,7 +143,10 @@ class GeofencingService : MethodCallHandler, JobIntentService() {
             }
         }
 
-        val location = geofencingEvent.triggeringLocation
+        var location = Location("")
+        if (geofencingEvent.triggeringLocation != null) {
+            location = geofencingEvent.triggeringLocation
+        }
         val locationList = listOf(location.latitude,
                 location.longitude)
         val geofenceUpdateList = listOf(callbackHandle,
